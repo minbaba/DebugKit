@@ -6,21 +6,12 @@
 //
 //
 
+#ifndef DebugManager_h
+#define DebugManager_h
 
 #import <Foundation/Foundation.h>
 #import "DebugBubble.h"
-
-
-@protocol DebugItemProtocol <NSObject>
-
-- (void)fetchData;
-
-@property (nonatomic, readonly) UIViewController *detailViewcontroller;
-
-@property (nonatomic, readonly) NSString *name;
-
-@end
-
+#import "DebugKit.h"
 
 @interface DebugManager : NSObject
 
@@ -28,9 +19,17 @@
 
 + (void)switchAccessorVisibility;
 
++ (void)registerHelper:(id<DebugHelperProtocol>)helper;
+
 @property (strong, nonatomic) DebugBubble *bubble;
 
 @property (copy, nonatomic) NSArray<DebugItemProtocol> *items;
 
 
+- (instancetype)init NS_UNAVAILABLE;
+
++ (instancetype)new NS_UNAVAILABLE; 
+
 @end
+
+#endif

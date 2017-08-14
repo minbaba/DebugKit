@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "summary": "A short description of DebugKit.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/minbaba/DebugKit",
+  "homepage": "http://192.168.0.246/minbaba/DebugKit",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +12,16 @@
     "minbaba": "zhengmin@ypzdw.com"
   },
   "source": {
-    "git": "https://github.com/minbaba/DebugKit.git",
+    "git": "http://192.168.0.246/minbaba/DebugKit.git",
     "tag": "0.1.0"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "DebugKit/Classes/**/*"
+  "source_files": "DebugKit/Classes/**/*",
+  "resource_bundles": {
+    "DebugKit": [
+      "DebugKit/Assets/*.storyboard"
+    ]
+  }
 }

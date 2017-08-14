@@ -13,6 +13,7 @@
 #import "NSString+FormatJSON.h"
 #import "NSURLSessionConfiguration+MBBExtension.h"
 #import "UIWindow+MBBExtention.h"
+#import "DebugKit.h"
 #import "DebugManager.h"
 #import "DebugHttpProtocol.h"
 #import "HttpDebugModel.h"

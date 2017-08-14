@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) UINavigationController  *rootVc;
 
+@property (strong, nonatomic) id<DebugHelperProtocol> helper;
+
 @end
 
 @implementation DebugManager
@@ -31,15 +33,15 @@
     return self;
 }
 
-
 static DebugManager *instance;
 
 + (instancetype)shareManeger {
     
     static dispatch_once_t onceKey;
     dispatch_once(&onceKey, ^{
-        instance = [self new];
-        instance.items = @[[PageInfoManager new], [RequestInfoManager new], [UserDataManager new]];
+        instance = [[self alloc] init];
+        NSArray *arr = @[[PageInfoManager new], [RequestInfoManager new], [UserDataManager new]];
+        instance.items = (NSArray<DebugItemProtocol> *)arr;
     });
     return instance;
 }
@@ -50,6 +52,7 @@ static DebugManager *instance;
     bubble.hidden = !bubble.hidden;
     if (bubble.hidden) {
         [bubble removeFromSuperview];
+        []
     } else {
     
         UIWindow *window = [UIApplication sharedApplication].delegate.window;
@@ -60,7 +63,10 @@ static DebugManager *instance;
                                   bubble.frame.size.height);
         [window addSubview:bubble];
     }
-    
+}
+
++ (void)registerHelper:(id<DebugHelperProtocol>)helper {
+    [DebugManager shareManeger].helper = helper;
 }
 
 - (void)clickedBubble {
@@ -76,7 +82,6 @@ static DebugManager *instance;
     }
     
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:self.rootVc animated:YES completion:nil];
-
 }
 
 - (UINavigationController *)rootVc {
