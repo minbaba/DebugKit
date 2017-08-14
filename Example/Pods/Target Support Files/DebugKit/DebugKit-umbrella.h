@@ -27,6 +27,7 @@
 #import "DebugDetailVc.h"
 #import "DebugRootVc.h"
 #import "RequestDebugVc.h"
+#import "ServerListVc.h"
 
 FOUNDATION_EXPORT double DebugKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char DebugKitVersionString[];
