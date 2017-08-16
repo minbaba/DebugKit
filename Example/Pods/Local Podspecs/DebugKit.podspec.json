@@ -12,7 +12,7 @@
     "minbaba": "zhengmin@ypzdw.com"
   },
   "source": {
-    "git": "http://192.168.0.246/minbaba/DebugKit.git",
+    "git": "git@192.168.0.246:minbaba/DebugKit.git",
     "tag": "0.1.0"
   },
   "platforms": {
