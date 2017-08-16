@@ -1,6 +1,6 @@
 //
 //  DebugManager.m
-//  YaoYi
+//  DebugKit
 //
 //  Created by 郑敏 on 2017/7/28.
 //
@@ -10,12 +10,12 @@
 #import "PageInfoManager.h"
 #import "RequestInfoManager.h"
 #import "UserDataManager.h"
+#import "ServerManager.h"
+#import "NSURLSessionConfiguration+MBBExtension.h"
 
 @interface DebugManager ()
 
 @property (strong, nonatomic) UINavigationController  *rootVc;
-
-@property (strong, nonatomic) id<DebugHelperProtocol> helper;
 
 @end
 
@@ -35,38 +35,62 @@
 
 static DebugManager *instance;
 
-+ (instancetype)shareManeger {
++ (instancetype)defualtManager {
     
     static dispatch_once_t onceKey;
     dispatch_once(&onceKey, ^{
         instance = [[self alloc] init];
-        NSArray *arr = @[[PageInfoManager new], [RequestInfoManager new], [UserDataManager new]];
+        NSArray *arr = @[[PageInfoManager new],
+                         [RequestInfoManager new],
+                         [UserDataManager new],
+                         [ServerManager new]];
         instance.items = (NSArray<DebugItemProtocol> *)arr;
     });
     return instance;
 }
 
 + (void)switchAccessorVisibility {
+
+#ifdef DEBUG
+    DebugBubble *bubble = [DebugManager defualtManager].bubble;
+    bubble.hidden = NO;
+    [NSURLSessionConfiguration setRegisterFlag:YES];
     
-    DebugBubble *bubble = [DebugManager shareManeger].bubble;
-    bubble.hidden = !bubble.hidden;
-    if (bubble.hidden) {
-        [bubble removeFromSuperview];
-        []
-    } else {
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:UIWindowDidBecomeVisibleNotification object:window];
+    bubble.frame = CGRectMake(window.frame.size.width - bubble.frame.size.width - 20,
+                              window.frame.size.height - bubble.frame.size.height - 50,
+                              bubble.frame.size.width,
+                              bubble.frame.size.height);
+    [window addSubview:bubble];
+#else
+
+#endif
     
-        UIWindow *window = [UIApplication sharedApplication].delegate.window;
-        
-        bubble.frame = CGRectMake(window.frame.size.width - bubble.frame.size.width - 20,
-                                  window.frame.size.height - bubble.frame.size.height - 50,
-                                  bubble.frame.size.width,
-                                  bubble.frame.size.height);
-        [window addSubview:bubble];
-    }
+//    
+//    bubble.hidden = !bubble.hidden;
+//    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+//
+//    if (bubble.hidden) {
+//        [bubble removeFromSuperview];
+//        [NSURLSessionConfiguration setRegisterFlag:NO];
+//        [[NSNotificationCenter defaultCenter] removeObserver:[self defualtManager]];
+//    } else {
+//    
+//        [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:UIWindowDidBecomeVisibleNotification object:window];
+//
+//        
+//        bubble.frame = CGRectMake(window.frame.size.width - bubble.frame.size.width - 20,
+//                                  window.frame.size.height - bubble.frame.size.height - 50,
+//                                  bubble.frame.size.width,
+//                                  bubble.frame.size.height);
+//        [window addSubview:bubble];
+//        [NSURLSessionConfiguration setRegisterFlag:YES];
+//    }
 }
 
 + (void)registerHelper:(id<DebugHelperProtocol>)helper {
-    [DebugManager shareManeger].helper = helper;
+    [DebugManager defualtManager].helper = helper;
 }
 
 - (void)clickedBubble {
@@ -86,11 +110,19 @@ static DebugManager *instance;
 
 - (UINavigationController *)rootVc {
     if (!_rootVc) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Debug" bundle:nil];
+    
+        NSBundle *bundle = [NSBundle bundleForClass:[DebugManager class]];
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Debug" bundle:bundle];
         _rootVc = sb.instantiateInitialViewController;
     }
     return _rootVc;
 }
+
+- (void)windowShow {
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [window bringSubviewToFront:self.bubble];
+}
+
 
 
 @end

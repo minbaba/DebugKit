@@ -1,6 +1,6 @@
 //
 //  DebugRootVc.m
-//  YaoYi
+//  DebugKit
 //
 //  Created by 郑敏 on 2017/7/31.
 //
@@ -24,18 +24,18 @@
 
 #pragma mark - tableView delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [DebugManager shareManeger].items.count;
+    return [DebugManager defualtManager].items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DebugItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.nameLabel.text = [[DebugManager shareManeger].items[indexPath.row] name];
+    cell.nameLabel.text = [[DebugManager defualtManager].items[indexPath.row] name];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UIViewController *vc = [[DebugManager shareManeger].items[indexPath.row] detailViewcontroller];
+    UIViewController *vc = [[DebugManager defualtManager].items[indexPath.row] detailViewcontroller];
     [self.navigationController pushViewController:vc animated:YES];
     
 }

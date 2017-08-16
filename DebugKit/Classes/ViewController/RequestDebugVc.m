@@ -1,6 +1,6 @@
 //
 //  RequestDebugVc.m
-//  YaoYi
+//  DebugKit
 //
 //  Created by 郑敏 on 2017/8/3.
 //
@@ -21,7 +21,8 @@
 @implementation RequestDebugVc
 
 + (instancetype)instance {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Debug" bundle:nil];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Debug" bundle:bundle];
     return [sb instantiateViewControllerWithIdentifier:@"RequestDebugVc"];
 }
 

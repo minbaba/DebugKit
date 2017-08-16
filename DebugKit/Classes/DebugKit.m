@@ -7,7 +7,18 @@
 //
 
 #import "DebugKit.h"
+#ifdef DEBUG
+#import "DebugManager.h"
+#endif
 
 @implementation DebugKit
+
++ (void)registerWithHelperClass:(Class)cls {
+    
+#ifdef DEBUG
+    [DebugManager registerHelper:[cls new]];
+    [DebugManager switchAccessorVisibility];
+#endif
+}
 
 @end

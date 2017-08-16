@@ -1,6 +1,6 @@
 //
 //  UserDataManager.m
-//  YaoYi
+//  DebugKit
 //
 //  Created by 郑敏 on 2017/8/4.
 //
@@ -16,8 +16,9 @@
 
 #pragma - item protocol
 - (void)fetchData {
-    
-
+    if ([[DebugManager defualtManager].helper respondsToSelector:@selector(userInfo)]) {
+        infoDict = [DebugManager defualtManager].helper.userInfo;
+    }
 }
 
 - (UIViewController *)detailViewcontroller {
