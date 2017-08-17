@@ -111,7 +111,10 @@ static DebugManager *instance;
 - (UINavigationController *)rootVc {
     if (!_rootVc) {
     
-        NSBundle *bundle = [NSBundle bundleForClass:[DebugManager class]];
+        NSBundle *podBundle = [NSBundle bundleForClass:[DebugManager class]];
+        NSURL *bundleURL = [podBundle URLForResource:@"DebugKit" withExtension:@"bundle"];
+        NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
+
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Debug" bundle:bundle];
         _rootVc = sb.instantiateInitialViewController;
     }

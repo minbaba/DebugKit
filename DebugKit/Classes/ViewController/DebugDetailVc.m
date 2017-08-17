@@ -21,7 +21,10 @@
 }
 
 + (instancetype)instance {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSBundle *podBundle = [NSBundle bundleForClass:[DebugDetailVc class]];
+    NSURL *bundleURL = [podBundle URLForResource:@"DebugKit" withExtension:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
+
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Debug" bundle:bundle];
     return [sb instantiateViewControllerWithIdentifier:@"detail"];
 }
