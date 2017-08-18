@@ -10,4 +10,6 @@
 
 @interface DebugBubble : UIControl
 
+@property (nonatomic, copy) NSString *title;
+
 @end

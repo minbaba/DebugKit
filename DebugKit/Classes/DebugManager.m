@@ -91,6 +91,7 @@ static DebugManager *instance;
 
 + (void)registerHelper:(id<DebugHelperProtocol>)helper {
     [DebugManager defualtManager].helper = helper;
+    [DebugManager defualtManager].bubble.title = helper.currentNetEnv;
 }
 
 - (void)clickedBubble {

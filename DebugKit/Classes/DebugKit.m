@@ -11,12 +11,18 @@
 #import "DebugManager.h"
 #endif
 
+
 @implementation DebugKit
 
 + (void)registerWithHelperClass:(Class)cls {
     
 #ifdef DEBUG
-    [DebugManager registerHelper:[cls new]];
+    Class class = cls;
+    if (class == nil) {
+        class = NSClassFromString(@"DebugHelper");
+    }
+    
+    [DebugManager registerHelper:[class new]];
     [DebugManager switchAccessorVisibility];
 #endif
 }

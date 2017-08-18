@@ -8,7 +8,11 @@
 
 #import "YWDebugHelper.h"
 
-@implementation YWDebugHelper 
+DebugUserDefualtKey const kCurrentNetEnvKey = @"kCurrentNetEnvKey";  ///< 当前网络环境
+
+@implementation YWDebugHelper
+
+@synthesize currentNetEnv = _currentNetEnv;
 
 /**
  返回用户数据的字典
@@ -31,5 +35,25 @@
 - (NSArray<NSString *> *)networkEnvs {
     return @[@"stage", @"test", @"online"];
 }
+
+- (void)setCurrentNetEnv:(NSString *)currentNextEnv {
+    
+    NSUserDefaults *defualt = [NSUserDefaults standardUserDefaults];
+    [defualt setObject:currentNextEnv forKey:kCurrentNetEnvKey];
+    [defualt synchronize];
+    
+    // 强制退出
+    exit(0);
+}
+
+- (NSString *)currentNetEnv {
+    _currentNetEnv = [[NSUserDefaults standardUserDefaults] stringForKey:kCurrentNetEnvKey];
+    if (!_currentNetEnv || ! _currentNetEnv.length) {
+        _currentNetEnv = @"online";
+    }
+
+    return _currentNetEnv;
+}
+
 
 @end

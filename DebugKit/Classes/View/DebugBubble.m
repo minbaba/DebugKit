@@ -18,9 +18,10 @@ static CGFloat const BubbleSize = 60;
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.7];
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
         self.layer.cornerRadius = BubbleSize / 2;
-        self.layer.borderColor = [UIColor blueColor].CGColor;
+        self.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.clipsToBounds = YES;
         self.frame = CGRectMake(0, 0, BubbleSize, BubbleSize);
         self.layer.borderWidth = 2;
     }
@@ -29,6 +30,14 @@ static CGFloat const BubbleSize = 60;
 
 - (CGSize)intrinsicContentSize {
     return CGSizeMake(BubbleSize, BubbleSize);
+}
+
+- (void)setTitle:(NSString *)title {
+    _title = [title copy];
+}
+
+- (void)drawRect:(CGRect)rect {
+    [self.title drawAtPoint:CGPointMake(10, BubbleSize / 2 - 7) withAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont systemFontOfSize:14]}];
 }
 
 @end
