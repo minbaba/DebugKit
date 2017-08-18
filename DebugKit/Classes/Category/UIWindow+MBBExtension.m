@@ -1,15 +1,33 @@
 //
-//  UIWindow+MBBExtention.m
+//  UIWindow+MBBExtension.m
 //  DebugKit
 //
 //  Created by 郑敏 on 2017/7/31.
 //
 //
 
-#import "UIWindow+MBBExtention.h"
+#import "UIWindow+MBBExtension.h"
+#import <objc/runtime.h>
 
-@implementation UIWindow (MBBExtention)
 
+NSNotificationName const kUIWindowDidChangeRootVcNotification = @"kUIWindowDidChangeRootVcNotification";  ///< UIWindow rootViewController 被修改的通知
+
+@implementation UIWindow (MBBExtension)
+
++ (void)load {
+#ifdef DEBUG
+    Method systemMethod = class_getInstanceMethod([self class], @selector(setRootViewController:));
+    Method zwMethod = class_getInstanceMethod([self class], @selector(mbb_setRootViewController:));    method_exchangeImplementations(systemMethod, zwMethod);
+#endif
+}
+
+- (void)mbb_setRootViewController:(UIViewController *)rootViewController {
+    [self mbb_setRootViewController:rootViewController];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUIWindowDidChangeRootVcNotification object:nil];
+}
+
+#pragma mark - 华丽丽
 - (UIViewController *)visibleViewController {
     UIViewController *rootViewController = self.rootViewController;
     return [UIWindow getVisibleViewControllerFrom:rootViewController];

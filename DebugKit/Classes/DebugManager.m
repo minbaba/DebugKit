@@ -12,6 +12,7 @@
 #import "UserDataManager.h"
 #import "ServerManager.h"
 #import "NSURLSessionConfiguration+MBBExtension.h"
+#import "UIWindow+MBBExtension.h"
 
 @interface DebugManager ()
 
@@ -50,43 +51,21 @@ static DebugManager *instance;
 }
 
 + (void)switchAccessorVisibility {
-
 #ifdef DEBUG
     DebugBubble *bubble = [DebugManager defualtManager].bubble;
     bubble.hidden = NO;
     [NSURLSessionConfiguration setRegisterFlag:YES];
     
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:kUIWindowDidChangeRootVcNotification object:window];
     [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:UIWindowDidBecomeVisibleNotification object:window];
+    
     bubble.frame = CGRectMake(window.frame.size.width - bubble.frame.size.width - 20,
                               window.frame.size.height - bubble.frame.size.height - 50,
                               bubble.frame.size.width,
                               bubble.frame.size.height);
     [window addSubview:bubble];
-#else
-
 #endif
-    
-//    
-//    bubble.hidden = !bubble.hidden;
-//    UIWindow *window = [UIApplication sharedApplication].delegate.window;
-//
-//    if (bubble.hidden) {
-//        [bubble removeFromSuperview];
-//        [NSURLSessionConfiguration setRegisterFlag:NO];
-//        [[NSNotificationCenter defaultCenter] removeObserver:[self defualtManager]];
-//    } else {
-//    
-//        [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:UIWindowDidBecomeVisibleNotification object:window];
-//
-//        
-//        bubble.frame = CGRectMake(window.frame.size.width - bubble.frame.size.width - 20,
-//                                  window.frame.size.height - bubble.frame.size.height - 50,
-//                                  bubble.frame.size.width,
-//                                  bubble.frame.size.height);
-//        [window addSubview:bubble];
-//        [NSURLSessionConfiguration setRegisterFlag:YES];
-//    }
 }
 
 + (void)registerHelper:(id<DebugHelperProtocol>)helper {

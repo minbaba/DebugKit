@@ -7,7 +7,7 @@
 //
 
 #import "PageInfoManager.h"
-#import "UIWindow+MBBExtention.h"
+#import "UIWindow+MBBExtension.h"
 #import "DebugDetailVc.h"
 #import <objc/runtime.h>
 
