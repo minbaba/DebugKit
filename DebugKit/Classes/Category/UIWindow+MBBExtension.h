@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-UIKIT_EXTERN NSNotificationName const kUIWindowDidChangeRootVcNotification;
+//UIKIT_EXTERN NSNotificationName const kUIWindowDidChangeRootVcNotification;
 
 @interface UIWindow (MBBExtension)
 

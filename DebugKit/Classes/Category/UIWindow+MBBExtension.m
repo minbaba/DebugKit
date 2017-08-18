@@ -14,18 +14,18 @@ NSNotificationName const kUIWindowDidChangeRootVcNotification = @"kUIWindowDidCh
 
 @implementation UIWindow (MBBExtension)
 
-+ (void)load {
-#ifdef DEBUG
-    Method systemMethod = class_getInstanceMethod([self class], @selector(setRootViewController:));
-    Method zwMethod = class_getInstanceMethod([self class], @selector(mbb_setRootViewController:));    method_exchangeImplementations(systemMethod, zwMethod);
-#endif
-}
-
-- (void)mbb_setRootViewController:(UIViewController *)rootViewController {
-    [self mbb_setRootViewController:rootViewController];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUIWindowDidChangeRootVcNotification object:nil];
-}
+//+ (void)load {
+//#ifdef DEBUG
+//    Method systemMethod = class_getInstanceMethod([self class], @selector(setRootViewController:));
+//    Method zwMethod = class_getInstanceMethod([self class], @selector(mbb_setRootViewController:));    method_exchangeImplementations(systemMethod, zwMethod);
+//#endif
+//}
+//
+//- (void)mbb_setRootViewController:(UIViewController *)rootViewController {
+//    [self mbb_setRootViewController:rootViewController];
+//    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kUIWindowDidChangeRootVcNotification object:nil];
+//}
 
 #pragma mark - 华丽丽
 - (UIViewController *)visibleViewController {
