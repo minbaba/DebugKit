@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <DebugKit/DebugKit.h>
 
-@interface YWDebugHelper : NSObject <DebugHelperProtocol>
+@interface DebugHelper : NSObject <DebugHelperProtocol>
 
 
 @end

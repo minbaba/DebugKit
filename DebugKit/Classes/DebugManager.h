@@ -55,10 +55,6 @@
  */
 + (instancetype)defualtManager;
 
-/**
- 切换气泡的显示与隐藏
- */
-+ (void)switchAccessorVisibility;
 
 /**
  注册定制化的辅助类

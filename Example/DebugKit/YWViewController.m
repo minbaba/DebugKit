@@ -8,6 +8,11 @@
 
 #import "YWViewController.h"
 
+typedef NS_ENUM(NSUInteger, TestType) {
+    TestTypeA = 1,
+    TestTypeB,
+};
+
 
 
 @interface YWViewController ()
@@ -20,7 +25,7 @@
 {
     [super viewDidLoad];
     
-	// Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

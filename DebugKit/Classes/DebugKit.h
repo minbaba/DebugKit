@@ -36,18 +36,4 @@ typedef NSString * DebugUserDefualtKey NS_EXTENSIBLE_STRING_ENUM;
 @property (nonatomic) NSString *currentNetEnv; ///< 当前网络环境
 
 @end
-
-
-@interface DebugKit : NSObject
-
-/**
- 注册 helper 类
- 如果传入 nil 则自动寻找类名为 DebugHelper 的类型
-
- @param cls 需要注册的类型，可为空
- */
-+ (void)registerWithHelperClass:(Class)cls;
-
-@end
-
 #endif

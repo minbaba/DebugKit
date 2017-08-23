@@ -7,7 +7,7 @@
 //
 
 #import "YWAppDelegate.h"
-#import "YWDebugHelper.h"
+//#import "YWDebugHelper.h"
 
 
 @implementation YWAppDelegate
@@ -17,7 +17,7 @@
     // Override point for customization after application launch.
     
     
-    [DebugKit registerWithHelperClass:[YWDebugHelper class]];
+//    [DebugKit registerWithHelperClass:[YWDebugHelper class]];
     return YES;
 }
 

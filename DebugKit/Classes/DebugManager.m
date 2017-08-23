@@ -12,6 +12,8 @@
 #import "UserDataManager.h"
 #import "ServerManager.h"
 #import "NSURLSessionConfiguration+MBBExtension.h"
+#import "UIWindow+MBBExtension.h"
+#import <objc/runtime.h>
 
 @interface DebugManager ()
 
@@ -20,6 +22,29 @@
 @end
 
 @implementation DebugManager
+
++ (void)load {
+
+#ifdef DEBUG
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchAccessorVisibility) name:UIApplicationDidFinishLaunchingNotification object:nil];
+    
+    Protocol *protocol = @protocol(DebugHelperProtocol);
+    
+    // 获取 helper 类
+    int numberOfClasses = objc_getClassList(NULL, 0);
+    Class *classList = (__unsafe_unretained Class *)malloc(numberOfClasses * sizeof(Class));
+    numberOfClasses = objc_getClassList(classList, numberOfClasses);
+    
+    for (int idx = 0; idx < numberOfClasses; idx++) {
+        Class class = classList[idx];
+        if (class_getClassMethod(class, @selector(conformsToProtocol:)) && [class conformsToProtocol:protocol]) {
+            [DebugManager registerHelper:[[class alloc] init]];
+        }
+    }
+    free(classList);
+#endif
+
+}
 
 - (instancetype)init
 {
@@ -56,8 +81,7 @@ static DebugManager *instance;
     [NSURLSessionConfiguration setRegisterFlag:YES];
     
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
-    [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:UIWindowDidBecomeVisibleNotification object:window];
-    [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:UIApplicationDidBecomeActiveNotification object:window];
+    [[NSNotificationCenter defaultCenter] addObserver:[self defualtManager] selector:@selector(windowShow) name:kUIWindowDidChangeRootVcNotification object:window];
     
     bubble.frame = CGRectMake(window.frame.size.width - bubble.frame.size.width - 20,
                               window.frame.size.height - bubble.frame.size.height - 50,
@@ -101,8 +125,10 @@ static DebugManager *instance;
 }
 
 - (void)windowShow {
-    UIWindow *window = [UIApplication sharedApplication].delegate.window;
-    [window bringSubviewToFront:self.bubble];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        [window bringSubviewToFront:self.bubble];
+    });
 }
 
 

@@ -6,11 +6,11 @@
 //  Copyright © 2017年 minbaba. All rights reserved.
 //
 
-#import "YWDebugHelper.h"
+#import "DebugHelper.h"
 
 DebugUserDefualtKey const kCurrentNetEnvKey = @"kCurrentNetEnvKey";  ///< 当前网络环境
 
-@implementation YWDebugHelper
+@implementation DebugHelper
 
 @synthesize currentNetEnv = _currentNetEnv;
 
