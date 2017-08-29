@@ -18,6 +18,15 @@
     
     
 //    [DebugKit registerWithHelperClass:[YWDebugHelper class]];
+    
+    // test sandbox
+    NSURL* testUrl = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSString* path = [testUrl.path stringByAppendingPathComponent:@"test.txt"];
+    [@"123" writeToFile:path atomically:true encoding:NSUTF8StringEncoding error:nil];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"Hello, world!" forKey:@"TestKey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return YES;
 }
 

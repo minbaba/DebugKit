@@ -14,6 +14,7 @@
 #import "NSURLSessionConfiguration+MBBExtension.h"
 #import "UIWindow+MBBExtension.h"
 #import <objc/runtime.h>
+#import "YWSandboxBrowserManager.h"
 
 @interface DebugManager ()
 
@@ -68,7 +69,8 @@ static DebugManager *instance;
         NSArray *arr = @[[PageInfoManager new],
                          [RequestInfoManager new],
                          [UserDataManager new],
-                         [ServerManager new]];
+                         [ServerManager new],
+                         [YWSandboxBrowserManager new]];
         instance.items = (NSArray<DebugItemProtocol> *)arr;
     });
     return instance;
