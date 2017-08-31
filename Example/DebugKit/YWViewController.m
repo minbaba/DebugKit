@@ -8,15 +8,12 @@
 
 #import "YWViewController.h"
 
-typedef NS_ENUM(NSUInteger, TestType) {
-    TestTypeA = 1,
-    TestTypeB,
-};
 
 
 
 @interface YWViewController ()
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
 
 @implementation YWViewController
@@ -25,7 +22,8 @@ typedef NS_ENUM(NSUInteger, TestType) {
 {
     [super viewDidLoad];
     
-    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://baidu.com"]];
+    [_webView loadRequest:request];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

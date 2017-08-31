@@ -16,7 +16,7 @@
 @property (copy, nonatomic) NSString *mineType;
 @property (copy, nonatomic) NSString *statusCode;
 @property (copy, nonatomic) NSString *responseData;
-@property (copy, nonatomic) NSString *startTime;
+@property (copy, nonatomic) NSDate *startTime;
 @property (copy, nonatomic) NSString *duration;
 @property (copy, nonatomic) NSString *requestBody;
 @property (copy, nonatomic) NSError *error;

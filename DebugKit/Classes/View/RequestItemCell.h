@@ -14,4 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *urlLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *stateHint;
+
 @end

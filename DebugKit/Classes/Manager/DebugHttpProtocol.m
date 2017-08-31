@@ -18,7 +18,7 @@ static NSString * const myProtocolKey = @"mbbHttpProtocol";
 @property (nonatomic, strong) NSURLResponse *response;
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, strong) NSError *error;
-@property (nonatomic, assign) NSTimeInterval  startTime;
+@property (nonatomic, strong) NSDate *startTime;
 @end
 
 @implementation DebugHttpProtocol
@@ -50,7 +50,7 @@ static NSString * const myProtocolKey = @"mbbHttpProtocol";
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     self.connection = [[NSURLConnection alloc] initWithRequest:[[self class] canonicalRequestForRequest:self.request] delegate:self startImmediately:YES];
 #pragma clang diagnostic pop
-    self.startTime = [[NSDate date] timeIntervalSince1970];
+    self.startTime = [NSDate date];
 }
 
 - (void)stopLoading {
@@ -67,8 +67,8 @@ static NSString * const myProtocolKey = @"mbbHttpProtocol";
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)self.response;
     model.statusCode = [NSString stringWithFormat:@"%d",(int)httpResponse.statusCode];
     model.responseData = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-    model.duration = [NSString stringWithFormat:@"%fs",[[NSDate date] timeIntervalSince1970] - self.startTime];
-    model.startTime = [NSString stringWithFormat:@"%fs",self.startTime];
+    model.duration = [NSString stringWithFormat:@"%fs",[[NSDate date] timeIntervalSince1970] - self.startTime.timeIntervalSince1970];
+    model.startTime = self.startTime;
     model.error = self.error;
     
     [HttpDebugModel push:model];

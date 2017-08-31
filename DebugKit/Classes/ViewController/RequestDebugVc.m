@@ -63,8 +63,11 @@
     HttpDebugModel *model = self.dataList[indexPath.row];
     RequestItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.urlLabel.text = model.url;
-    cell.timeLabel.text = model.startTime;
-    cell.backgroundColor = model.error? [UIColor redColor]: [UIColor whiteColor];
+    
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"日期:yyyy-MM-dd HH:mm:ss"];
+    cell.timeLabel.text = [formatter stringFromDate:model.startTime];
+    cell.stateHint.backgroundColor = model.error? [UIColor redColor]: [UIColor greenColor];
     return cell;
 }
 
