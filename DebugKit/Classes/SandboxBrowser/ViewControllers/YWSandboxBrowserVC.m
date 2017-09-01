@@ -227,6 +227,7 @@ UIColor *SBColorFromHexNumber(NSInteger hexNumber) {
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:fileCellIdentifier];
+        cell.tintColor = [UIColor lightGrayColor];
         
         nameLabel = ({
             UILabel *label      = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -283,6 +284,8 @@ UIColor *SBColorFromHexNumber(NSInteger hexNumber) {
     if (fileItem.fileType == YWFileItemTypeDirectory) {
         // 文件夹，展示文件夹内文件数量
         countLabel.text = [NSString stringWithFormat:@"%ld", fileItem.subContentsCount];
+    } else {
+        countLabel.text = @"";
     }
     
     if (self.isRootDirectory) {
@@ -291,7 +294,6 @@ UIColor *SBColorFromHexNumber(NSInteger hexNumber) {
         UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
     } else {
         // 文件夹展示 i 按钮标识
-        cell.tintColor = [UIColor lightGrayColor];
         cell.accessoryType = (fileItem.fileType == YWFileItemTypeDirectory) ?
         UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryNone;
     }
