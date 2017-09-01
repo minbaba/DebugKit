@@ -147,6 +147,32 @@ UIColor *SBColorFromHexNumber(NSInteger hexNumber) {
     [self.tableView reloadData];
 }
 
+- (void)addLongPressGestureToView:(UIView *)view {
+    UILongPressGestureRecognizer *longPressGes = [[UILongPressGestureRecognizer alloc]
+                                                  initWithTarget:self
+                                                  action:@selector(onLongPress:)];
+    [view addGestureRecognizer:longPressGes];
+}
+
+- (void)onLongPress:(UIGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if ([self becomeFirstResponder]) {
+            UIView *targetView = gesture.view;
+            UIMenuItem *copyItem = [[UIMenuItem alloc] initWithTitle:@"复制"
+                                                              action:@selector(copyCurrentPath)];
+            UIMenuController *menuController = [UIMenuController sharedMenuController];
+            menuController.menuItems = @[copyItem];
+            [menuController setTargetRect:targetView.bounds inView:targetView];
+            [menuController setMenuVisible:YES animated:YES];
+        }
+    }
+}
+
+- (void)copyCurrentPath {
+    UIPasteboard *pastboard = [UIPasteboard generalPasteboard];
+    pastboard.string = self.path;
+}
+
 #pragma mark - Getter
 - (NSString *)path {
     if (!_path) {
@@ -170,6 +196,10 @@ UIColor *SBColorFromHexNumber(NSInteger hexNumber) {
         path = [@"/" stringByAppendingString:path];
     }
     return [tip stringByAppendingString:path];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 #pragma mark - Action
@@ -210,9 +240,11 @@ UIColor *SBColorFromHexNumber(NSInteger hexNumber) {
                                           reuseIdentifier:pathCellIdentifier];
             cell.textLabel.numberOfLines    = 0;
             cell.textLabel.lineBreakMode    = NSLineBreakByTruncatingHead;
-            cell.selectionStyle             = UITableViewCellSelectionStyleNone;
             cell.textLabel.font             = [UIFont systemFontOfSize:15.];
             cell.textLabel.textColor        = SBColorFromHexNumber(0x333333);
+            
+            // 添加长按复制当前 path 功能
+            [self addLongPressGestureToView:cell];
         }
         cell.textLabel.text = [self currentFullPathString];
         return cell;
@@ -325,7 +357,10 @@ UIColor *SBColorFromHexNumber(NSInteger hexNumber) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) return;
+    if (indexPath.section == 0) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    };
     
     YWSandboxFileItem *fileItem = self.fileArray[indexPath.row];
     if (fileItem.fileType == YWFileItemTypeDirectory) {
