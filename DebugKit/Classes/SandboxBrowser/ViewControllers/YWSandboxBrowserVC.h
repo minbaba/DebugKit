@@ -14,7 +14,7 @@
 /**
  返回一个指定 path 的控制器，并显示该目录下的内容。
 
- @param path 目录地址
+ @param path 目录地址，传 `nil` 表示根目录。
  @return 指定 path 的控制器。
  */
 + (instancetype)instanceWithPath:(NSString *)path;
