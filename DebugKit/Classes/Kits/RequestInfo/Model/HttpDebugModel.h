@@ -22,7 +22,7 @@
 @property (copy, nonatomic) NSError *error;
 
 
-@property (readonly) NSAttributedString *attributedDescription;
+//@property (readonly) NSAttributedString *attributedDescription;
 
 // for list
 @property (strong, nonatomic) HttpDebugModel *next;

@@ -9,7 +9,7 @@
 #import "RequestDebugVc.h"
 #import "HttpDebugModel.h"
 #import "RequestItemCell.h"
-#import "DebugDetailVc.h"
+#import "RequestDetailVc.h"
 
 @interface RequestDebugVc () <UISearchBarDelegate>
 
@@ -77,8 +77,8 @@
     }
     
     HttpDebugModel *model = self.dataList[indexPath.row];
-    DebugDetailVc *vc = [DebugDetailVc instance];
-    vc.text = model.attributedDescription;
+    RequestDetailVc *vc = [RequestDetailVc instance];
+    vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

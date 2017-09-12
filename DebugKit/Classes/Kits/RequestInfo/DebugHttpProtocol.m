@@ -64,6 +64,7 @@ static NSString * const myProtocolKey = @"mbbHttpProtocol";
         NSData* data = self.request.HTTPBody;
         model.requestBody = data.description;
     }
+    
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)self.response;
     model.statusCode = [NSString stringWithFormat:@"%d",(int)httpResponse.statusCode];
     model.responseData = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
