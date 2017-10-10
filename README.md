@@ -22,7 +22,7 @@ pod "DebugKit"
 
 ## Author
 
-minbaba, zhengmin@ypzdw.com
+minbaba, zhminbaba@gmail.com
 
 ## License
 
