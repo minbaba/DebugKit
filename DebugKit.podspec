@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DebugKit'
-  s.version          = '0.1.9'
+  s.version          = '0.1.10'
   s.summary          = 'DebugKit.'
 
 # This description is used to generate tags and improve search results.
@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 		通用Debug工具
                        DESC
 
-  s.homepage         = 'http://192.168.0.246/minbaba/DebugKit'
+  s.homepage         = 'https://github.com/minbaba/DebugKit'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'minbaba' => 'zhengmin@ypzdw.com' }
-  s.source           = { :git => 'git@192.168.0.246:minbaba/DebugKit.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/minbaba/DebugKit.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
