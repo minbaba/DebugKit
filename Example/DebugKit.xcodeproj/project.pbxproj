@@ -256,7 +256,7 @@
 				ORGANIZATIONNAME = minbaba;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = D9FBZDRLUB;
+						DevelopmentTeam = 25AV5Y6AN6;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -543,7 +543,7 @@
 			baseConfigurationReference = F6637D6C8315B30514201C8F /* Pods-DebugKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D9FBZDRLUB;
+				DEVELOPMENT_TEAM = 25AV5Y6AN6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DebugKit/DebugKit-Prefix.pch";
 				INFOPLIST_FILE = "DebugKit/DebugKit-Info.plist";
@@ -560,7 +560,7 @@
 			baseConfigurationReference = 67655F8C14E8BBF550813683 /* Pods-DebugKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D9FBZDRLUB;
+				DEVELOPMENT_TEAM = 25AV5Y6AN6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DebugKit/DebugKit-Prefix.pch";
 				INFOPLIST_FILE = "DebugKit/DebugKit-Info.plist";

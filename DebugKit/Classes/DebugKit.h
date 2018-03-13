@@ -35,5 +35,14 @@ typedef NSString * DebugUserDefualtKey NS_EXTENSIBLE_STRING_ENUM;
 
 @property (nonatomic) NSString *currentNetEnv; ///< 当前网络环境
 
+
+@optional
+/**
+ 返回可供配置的扩展 VC 入口
+
+ @return 扩展入口 VC 入口
+ */
+- (NSArray<UIViewController *> *)extensionEnters;
+
 @end
 #endif

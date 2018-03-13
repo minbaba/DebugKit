@@ -26,7 +26,6 @@ DebugUserDefualtKey const kCurrentNetEnvKey = @"kCurrentNetEnvKey";  ///< 当前
              @"girlfriendsCount": @10000000};
 }
 
-
 /**
  可供选择的网络环境
  
@@ -55,5 +54,10 @@ DebugUserDefualtKey const kCurrentNetEnvKey = @"kCurrentNetEnvKey";  ///< 当前
     return _currentNetEnv;
 }
 
+- (NSArray<UIViewController *> *)extensionEnters {
+    UIViewController *vc = [UIViewController new];
+    vc.title = @"入口1";
+    return @[vc];
+}
 
 @end
